@@ -1,44 +1,35 @@
-/* MOBILE MENU */
-function toggleMenu() {
-  const nav = document.getElementById("nav");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
-}
+/* Cursor */
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
 
-/* SCROLL REVEAL */
+
+
+/* Scroll reveal */
 const reveals = document.querySelectorAll(".reveal");
 window.addEventListener("scroll", () => {
-  reveals.forEach(r => {
-    const top = r.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      r.classList.add("active");
+  reveals.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add("active");
     }
   });
 });
 
-/* DARK / LIGHT MODE */
-const toggle = document.getElementById("themeToggle");
-toggle.onclick = () => {
-  document.body.classList.toggle("light");
-  localStorage.setItem("theme",
-    document.body.classList.contains("light") ? "light" : "dark");
-};
-
-if (localStorage.getItem("theme") === "light") {
-  document.body.classList.add("light");
-}
-
-/* GITHUB PROJECTS AUTO LOAD */
+/* GitHub projects */
 fetch("https://api.github.com/users/ghoshswapnadip7-coder/repos")
   .then(res => res.json())
   .then(data => {
-    const grid = document.getElementById("projectGrid");
-    grid.innerHTML = "";
-    data.slice(0,6).forEach(repo => {
-      grid.innerHTML += `
-        <div class="project-card">
-          <h3>${repo.name}</h3>
-          <p>${repo.description || "No description"}</p>
-          <a href="${repo.html_url}" target="_blank">View on GitHub</a>
-        </div>`;
+    const container = document.getElementById("projects-container");
+    data.slice(0, 6).forEach(repo => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <h3>${repo.name}</h3>
+        <p>${repo.description || "No description"}</p>
+        <a href="${repo.html_url}" target="_blank">View</a>
+      `;
+      container.appendChild(div);
     });
   });
