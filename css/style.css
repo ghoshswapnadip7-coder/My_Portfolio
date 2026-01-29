@@ -296,10 +296,10 @@ h3,
 .card {
   padding: 30px;
   border-radius: 20px;
-  background: #121212;
-  border: 1px solid #eb7f38;
-  transition: 0.3s ease;
-  color: #eb7f38;
+background: #121212;
+    border: 1px solid #792e47;
+    transition: 0.3s cubic-bezier(0.25, 0.1, 0.2, 0.99);
+    color: #e1306c;
 }
 
 .card:hover {
